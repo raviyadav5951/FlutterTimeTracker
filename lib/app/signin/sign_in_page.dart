@@ -1,11 +1,27 @@
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:new_timetracker/app/signin/sign_in_button.dart';
 import 'package:new_timetracker/app/signin/social_signin_button.dart';
-import 'package:new_timetracker/common_widgets/custom_elevated_button.dart';
+import 'package:toast/toast.dart';
+
+import 'sign_in_button.dart';
 
 class SignInPage extends StatelessWidget {
+  const SignInPage({Key key, @required this.onSignIn}) : super(key: key);
+  final void Function(User) onSignIn;
+
+  Future<void> _signInAnonymously() async {
+    try {
+    
+      final userCredential = await FirebaseAuth.instance.signInAnonymously();
+      onSignIn(userCredential.user);
+      
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,12 +29,12 @@ class SignInPage extends StatelessWidget {
         title: Text('New Time tracker'),
         elevation: 2.0,
       ),
-      body: _buildContent(),
+      body: _buildContent(context),
       backgroundColor: Colors.grey[200],
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(16.0),
       child: Column(
@@ -56,8 +72,7 @@ class SignInPage extends StatelessWidget {
           SizedBox(
             height: 8.0,
           ),
-          SocialSignInButton(
-            assetName: '',
+          SignInButton(
             color: Colors.teal[700],
             text: 'Sign in with Email',
             onPressed: () {},
@@ -76,15 +91,18 @@ class SignInPage extends StatelessWidget {
           SizedBox(
             height: 8.0,
           ),
-          SocialSignInButton(
-            assetName: '',
+          SignInButton(
             color: Colors.lime[300],
             text: 'Go Anonymous',
-            onPressed: () {},
+            onPressed: _signInAnonymously,
             textColor: Colors.black87,
           ),
         ],
       ),
     );
+  }
+
+  void showToast(String msg,BuildContext context, {int duration, int gravity}) {
+    Toast.show(msg, context, duration: duration, gravity: gravity);
   }
 }

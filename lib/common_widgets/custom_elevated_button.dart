@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
 
 class CustomElevatedButton extends StatelessWidget {
   final Widget child;
   final Color color;
-  final ui.VoidCallback onPressed;
+  final VoidCallback onPressed;
   final double borderRadius;
   final double height;
 
@@ -20,7 +19,8 @@ class CustomElevatedButton extends StatelessWidget {
     return SizedBox(
       height: height,
       child: ElevatedButton(
-        onPressed: () {},
+        
+        onPressed:onPressed,
         child: child,
         style: ElevatedButton.styleFrom(
             primary: color,

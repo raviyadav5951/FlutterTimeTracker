@@ -1,14 +1,13 @@
 import 'package:new_timetracker/common_widgets/custom_elevated_button.dart';
 
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
 
 class SocialSignInButton extends CustomElevatedButton {
   SocialSignInButton(
       {@required String text,
       Color color,
       Color textColor,
-      ui.VoidCallback onPressed,
+      VoidCallback onPressed,
       @required String assetName})
       : assert(text != null),
         assert(assetName != null),
