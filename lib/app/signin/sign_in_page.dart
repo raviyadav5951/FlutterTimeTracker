@@ -2,21 +2,21 @@ import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:new_timetracker/app/services/auth.dart';
 import 'package:new_timetracker/app/signin/social_signin_button.dart';
 import 'package:toast/toast.dart';
 
 import 'sign_in_button.dart';
 
 class SignInPage extends StatelessWidget {
-  const SignInPage({Key key, @required this.onSignIn}) : super(key: key);
+  const SignInPage({Key key, @required this.auth,@required this.onSignIn}) : super(key: key);
   final void Function(User) onSignIn;
+  final AuthBase auth;
 
   Future<void> _signInAnonymously() async {
     try {
-    
-      final userCredential = await FirebaseAuth.instance.signInAnonymously();
-      onSignIn(userCredential.user);
-      
+      final user = await auth.signInAnonymously();
+      onSignIn(user);
     } catch (e) {
       print(e.toString());
     }
@@ -102,7 +102,8 @@ class SignInPage extends StatelessWidget {
     );
   }
 
-  void showToast(String msg,BuildContext context, {int duration, int gravity}) {
+  void showToast(String msg, BuildContext context,
+      {int duration, int gravity}) {
     Toast.show(msg, context, duration: duration, gravity: gravity);
   }
 }
