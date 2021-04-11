@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "483367412482",
+    "firebase_url": "https://timetrackerflutter-bd138.firebaseio.com",
+    "project_id": "timetrackerflutter-bd138",
+    "storage_bucket": "timetrackerflutter-bd138.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483367412482:android:74a8046b3563d5ebe7181b",
+        "android_client_info": {
+          "package_name": "com.askfortricks.timetracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "483367412482-d7cpo6vieo093io7udjahgcfqtm16rro.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.askfortricks.timetracker",
+            "certificate_hash": "77c2f2819c6fcb87581f4d96b541acadf04c9cf8"
+          }
+        },
+        {
+          "client_id": "483367412482-v2ti727thilligui49s3apihl756e8eo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.askfortricks.timetracker",
+            "certificate_hash": "25739bd51ea691e143dd1b5270e1aa8a599a8d53"
+          }
+        },
+        {
+          "client_id": "483367412482-7u2dnmlurclli0d9d2ai5no6emb2gl1f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsaVAALZPWFr240iaUMZNX7RSkojxAo_M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "483367412482-7u2dnmlurclli0d9d2ai5no6emb2gl1f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "483367412482-dgo50ujbidt1tilf8ed3lkhfgns9qgh5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.askfortricks.timetracker"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
