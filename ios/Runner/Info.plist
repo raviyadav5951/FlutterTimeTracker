@@ -41,5 +41,21 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.483367412482-dgo50ujbidt1tilf8ed3lkhfgns9qgh5</string>
+				<string>fb639206673303583</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>639206673303583</string>
+	<key>FacebookDisplayName</key>
+	<string>Time Tracker</string>
 </dict>
 </plist>
