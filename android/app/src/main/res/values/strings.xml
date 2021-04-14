@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name" translatable="false">Time Track</string>
+<string name="facebook_app_id">639206673303583</string>
+<string name="fb_login_protocol_scheme">fb639206673303583</string>
+</resources>
