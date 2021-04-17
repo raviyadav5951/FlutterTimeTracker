@@ -36,3 +36,5 @@ New Time tracker flutter
 3. Firebase console will map the token and return the FirebaseUser in response.
 4. Then we will continue the operation with User (from Firebase) and maintain the login session.
 5. Note: Logout not only from Firebase but also from google and facebook when logout from HomePage.
+
+## Branch : 5_email_password_login

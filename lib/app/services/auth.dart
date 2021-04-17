@@ -11,6 +11,8 @@ abstract class AuthBase {
   Future<void> signOut();
   Future<User> signInWithGoogle();
   Future<User> signInWithFacebook();
+  Future<User> signInWithEmailAndPassword(String email, String password);
+  Future<User> createUserWithEmailAndPassword(String email, String password);
 }
 
 class Auth implements AuthBase {
@@ -89,9 +91,8 @@ class Auth implements AuthBase {
 
   @override
   Future<User> signInWithFacebook() async {
-    final LoginResult result = await FacebookAuth.instance
-        .login(); 
-        // by the default SDK request the email and the public profile
+    final LoginResult result = await FacebookAuth.instance.login();
+    // by the default SDK request the email and the public profile
 
     switch (result.status) {
       case LoginStatus.success:
@@ -115,5 +116,21 @@ class Auth implements AuthBase {
       default:
         throw UnimplementedError();
     }
+  }
+
+  @override
+  Future<User> signInWithEmailAndPassword(String email, String password) async {
+    final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email, password: password);
+
+    return userCredential.user;
+  }
+
+  @override
+  Future<User> createUserWithEmailAndPassword(
+      String email, String password) async {
+    final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email, password: password);
+    return userCredential.user;
   }
 }

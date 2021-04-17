@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:new_timetracker/app/services/auth.dart';
+import 'package:new_timetracker/app/signin/email_sign_in_page.dart';
 import 'package:new_timetracker/app/signin/social_signin_button.dart';
 import 'package:toast/toast.dart';
 
@@ -26,6 +27,7 @@ class SignInPage extends StatelessWidget {
       print(e.toString());
     }
   }
+
   Future<void> _signInWithFacebook() async {
     try {
       await auth.signInWithFacebook();
@@ -33,8 +35,12 @@ class SignInPage extends StatelessWidget {
       print(e.toString());
     }
   }
-  
 
+  void _signInWithEmail(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(fullscreenDialog: true,builder: (context) => EmailSignInPage(auth: auth,)));
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +95,7 @@ class SignInPage extends StatelessWidget {
           SignInButton(
             color: Colors.teal[700],
             text: 'Sign in with Email',
-            onPressed: () {},
+            onPressed: () => _signInWithEmail(context),
             textColor: Colors.white,
           ),
           SizedBox(
