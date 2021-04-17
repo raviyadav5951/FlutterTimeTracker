@@ -120,18 +120,10 @@ class Auth implements AuthBase {
 
   @override
   Future<User> signInWithEmailAndPassword(String email, String password) async {
-    try {
-      final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
-      return userCredential.user;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-      }
-      return null;
-    }
+    final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email, password: password);
+
+    return userCredential.user;
   }
 
   @override
