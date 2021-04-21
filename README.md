@@ -3,28 +3,28 @@
 New Time tracker flutter
 
 ## Completed Task
--Created the custom button with concepts of Extending the classes.
--For Firebase related modules check  (https://firebase.flutter.dev/)
--Integrated the firebase auth from (https://pub.dev/packages/firebase_auth) 
+- Created the custom button with concepts of Extending the classes.
+- For Firebase related modules check  (https://firebase.flutter.dev/)
+- Integrated the firebase auth from (https://pub.dev/packages/firebase_auth) 
 - [Stream Controller DartPad practice](https://dartpad.dartlang.org/0ca5b334ec413c084575f575e0240501)
 ## Branch : stream
--added stream builder to listen for Auth user from base class, 
--remove dependency on function callback to show home screen/login screen based on user state.
--converted Landing Page from stateful to stateless bc we dont need user to get tracked in state as we have used StreamBuilder for listening the auth state changes.
+- Added stream builder to listen for Auth user from base class, 
+- Remove dependency on function callback to show home screen/login screen based on user state.
+- Converted Landing Page from stateful to stateless bc we dont need user to get tracked in state as we have used StreamBuilder for listening the auth state changes.
 
 ## Facebook/Google Login 
--Google Sign-In on iOS: https://firebase.google.com/docs/auth/ios/google-signin
+- Google Sign-In on iOS: https://firebase.google.com/docs/auth/ios/google-signin
 
--Google Sign-In on Android: https://firebase.google.com/docs/auth/android/google-signin
+- Google Sign-In on Android: https://firebase.google.com/docs/auth/android/google-signin
 
--Facebook Login for Android: https://developers.facebook.com/docs/facebook-login/android
+- Facebook Login for Android: https://developers.facebook.com/docs/facebook-login/android
 
--Facebook Login for iOS: https://developers.facebook.com/docs/facebook-login/ios
+- Facebook Login for iOS: https://developers.facebook.com/docs/facebook-login/ios
 
--Permissions with Facebook Login: https://developers.facebook.com/docs/facebook-login/permissions/overview
+- Permissions with Facebook Login: https://developers.facebook.com/docs/facebook-login/permissions/overview
 ## Branch : 4_Google_Facebook_Login
--Integrating the Google sign and Facebook sign in.
--Setup steps:
+- Integrating the Google sign and Facebook sign in.
+- Setup steps:
 1. https://console.developers.google.com/ 
 (If you have created project in Firebaseconsole and the project is not listed then click "All Projects" from filter in google cloud console)
 2. https://console.developers.google.com/apis/credentials/consent
@@ -43,3 +43,11 @@ New Time tracker flutter
 3. conditonal enabling/disbaling buttons
 4. loading state when api gets called then to avoid multiple api call request disable the buttons and input fields till api response arrives.
 5. onEditingComplete, onTextChanged ,textInputAction, keyboard type attributes of Textfield
+
+## Branch: 6_platform_dialogs
+1. showDialog(context,builder) on exception 
+2. Material widget for android and cupertino for ios platform
+
+- Cupertino (iOS-style) widgets: https://flutter.dev/docs/development/ui/widgets/cupertino
+
+- Material Components widgets: https://flutter.dev/docs/development/ui/widgets/material
