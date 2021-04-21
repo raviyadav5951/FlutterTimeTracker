@@ -51,3 +51,12 @@ New Time tracker flutter
 - Cupertino (iOS-style) widgets: https://flutter.dev/docs/development/ui/widgets/cupertino
 
 - Material Components widgets: https://flutter.dev/docs/development/ui/widgets/material
+
+## Branch 13_scopedaccess_inheritedwidget.
+- Scoped Access with InheritedWidget:
+
+- Problem : All widgets need Auth class (wrapper for FirebaseAuth class) just to pass the auth object to child classess through the constructor, even though they dont need it for their usage.
+- Solution : We will remove this constructor injection of auth and supply auth wherever needed without the constructor approach.
+- Created AuthProvider extends InheritedWidget which is a widget only and return the common AuthBase functionality once it is inserted in the widget hierarchy in main.dart.
+- For usage we just have to do this ` final auth = AuthProvider.of(context);' 
+- Use provider package 
