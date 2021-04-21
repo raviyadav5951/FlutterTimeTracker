@@ -1,8 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:new_timetracker/app/services/auth.dart';
 import 'package:new_timetracker/app/signin/validators.dart';
 import 'package:new_timetracker/common_widgets/form_submit_button.dart';
+import 'package:new_timetracker/common_widgets/show_alert_dialog.dart';
 
 enum EmailSignInFormType { signIn, register }
 
@@ -54,13 +54,13 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
         await widget.auth.createUserWithEmailAndPassword(_email, _password);
       }
       Navigator.pop(context);
-    } on FirebaseAuthException catch (e) {
-      print(e.toString());
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-      }
+    } catch (e) {
+      showAlertDialog(
+        context,
+        title:'Log in Failed',
+        content: e.toString(),
+        defaultActionText: 'OK',
+      );
     } finally {
       setState(() {
         _isLoading = false;
@@ -74,7 +74,8 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
 
   List<Widget> _buildChildren() {
     bool submitEnabled = widget.emailValidator.isValid(_email) &&
-        widget.passwordValidator.isValid(_password) && !_isLoading;
+        widget.passwordValidator.isValid(_password) &&
+        !_isLoading;
 
     final primaryText = _formType == EmailSignInFormType.signIn
         ? 'Sign In'
@@ -94,7 +95,7 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
         height: 8.0,
       ),
       FormSubmitButton(
-        onPressed: submitEnabled  ? _submit : null,
+        onPressed: submitEnabled ? _submit : null,
         text: primaryText,
       ),
       TextButton(
