@@ -38,3 +38,8 @@ New Time tracker flutter
 5. Note: Logout not only from Firebase but also from google and facebook when logout from HomePage.
 
 ## Branch : 5_email_password_login
+1. field validation
+2. focus nodes, 
+3. conditonal enabling/disbaling buttons
+4. loading state when api gets called then to avoid multiple api call request disable the buttons and input fields till api response arrives.
+5. onEditingComplete, onTextChanged ,textInputAction, keyboard type attributes of Textfield
