@@ -1,18 +1,17 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:new_timetracker/app/services/auth_provider.dart';
+import 'package:new_timetracker/app/services/auth.dart';
 import 'package:new_timetracker/app/signin/email_sign_in_page.dart';
 import 'package:new_timetracker/app/signin/social_signin_button.dart';
+import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 import 'sign_in_button.dart';
 
 class SignInPage extends StatelessWidget {
-  // const SignInPage({Key key, @required this.auth}) : super(key: key);
-  // final AuthBase auth;
 
   Future<void> _signInAnonymously(BuildContext context) async {
     try {
-      final auth = AuthProvider.of(context);
+      final auth = Provider.of<AuthBase>(context,listen: false);
       await auth.signInAnonymously();
     } catch (e) {
       print(e.toString());
@@ -21,7 +20,7 @@ class SignInPage extends StatelessWidget {
 
   Future<void> _signInWithGoogle(BuildContext context) async {
     try {
-      final auth = AuthProvider.of(context);
+      final auth = Provider.of<AuthBase>(context,listen: false);
       await auth.signInWithGoogle();
     } catch (e) {
       print(e.toString());
@@ -30,7 +29,7 @@ class SignInPage extends StatelessWidget {
 
   Future<void> _signInWithFacebook(BuildContext context) async {
     try {
-      final auth = AuthProvider.of(context);
+      final auth = Provider.of<AuthBase>(context,listen: false);
       await auth.signInWithFacebook();
     } catch (e) {
       print(e.toString());

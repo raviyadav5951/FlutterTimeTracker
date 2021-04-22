@@ -1,17 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:new_timetracker/app/home_page.dart';
-import 'package:new_timetracker/app/services/auth_provider.dart';
+import 'package:new_timetracker/app/services/auth.dart';
+import 'package:provider/provider.dart';
 import 'signin/sign_in_page.dart';
 
 class LandingPage extends StatelessWidget {
-  //removing this we will satisfy the Auth dependency from provider.
-  // final AuthBase auth;
-  // const LandingPage({Key key, @required this.auth}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final auth = AuthProvider.of(context);
+    final auth = Provider.of<AuthBase>(context,listen: false);
 
     return StreamBuilder<User>(
       stream: auth.authStateChanges(),

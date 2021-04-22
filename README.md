@@ -54,9 +54,28 @@ New Time tracker flutter
 
 ## Branch 13_scopedaccess_inheritedwidget.
 - Scoped Access with InheritedWidget:
-
+### Manually creating the inherited widget to supply the common Auth object
 - Problem : All widgets need Auth class (wrapper for FirebaseAuth class) just to pass the auth object to child classess through the constructor, even though they dont need it for their usage.
 - Solution : We will remove this constructor injection of auth and supply auth wherever needed without the constructor approach.
 - Created AuthProvider extends InheritedWidget which is a widget only and return the common AuthBase functionality once it is inserted in the widget hierarchy in main.dart.
 - For usage we just have to do this ` final auth = AuthProvider.of(context);' 
-- Use provider package 
+
+### To ease the process of Inherited widget we use Provider package as wrapper and its kind of generic InheritedWidget.
+- Use provider package to easily map the AuthBase class using Provider.
+- We will not be using ` final auth = AuthProvider.of(context);' instead we will use more generic form 
+like final auth = Provider.of<AuthBase>(context,listen: false);
+
+- final widget tree structure:
+![Screenshot](/screenshot/widget_tree_after_provider.png)
+
+- Strategy we have used till now for accessing the object
+[Screenshot](/screenshot/strategy_for_object_passing.png)
+
+### Useful Links & Resources
+1. InheritedWidget class: https://docs.flutter.io/flutter/widgets/InheritedWidget-class.html
+
+2. provider package: https://pub.dev/packages/provider
+
+3. dependOnInheritedWidgetOfExactType method: https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html
+
+4. getElementForInheritedWidgetOfExactType method: https://api.flutter.dev/flutter/widgets/BuildContext/getElementForInheritedWidgetOfExactType.html
