@@ -12,21 +12,24 @@ class CustomElevatedButton extends StatelessWidget {
       this.color = Colors.white,
       this.onPressed,
       this.borderRadius: 4.0,
-      this.height = 50.0}):assert(borderRadius!=null);
+      this.height = 50.0})
+      : assert(borderRadius != null);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: height,
       child: ElevatedButton(
-        
-        onPressed:onPressed,
+        onPressed: onPressed,
         child: child,
-        style: ElevatedButton.styleFrom(
-            primary: color,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(borderRadius),
-            )),
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
+            if (states.contains(MaterialState.disabled)) {
+              return color; // Disabled color
+            }
+            return color; // Regular color
+          }),
+        ),
       ),
     );
   }

@@ -69,7 +69,7 @@ like final auth = Provider.of<AuthBase>(context,listen: false);
 ![Screenshot](/screenshot/widget_tree_after_provider.png)
 
 - Strategy we have used till now for accessing the object
-[Screenshot](/screenshot/strategy_for_object_passing.png)
+![Screenshot](/screenshot/strategy_for_object_passing.png)
 
 ### Useful Links & Resources
 1. InheritedWidget class: https://docs.flutter.io/flutter/widgets/InheritedWidget-class.html
@@ -79,3 +79,13 @@ like final auth = Provider.of<AuthBase>(context,listen: false);
 3. dependOnInheritedWidgetOfExactType method: https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html
 
 4. getElementForInheritedWidgetOfExactType method: https://api.flutter.dev/flutter/widgets/BuildContext/getElementForInheritedWidgetOfExactType.html
+
+## Branch: 14_polish_auth_flows
+1. We have created a custom alert dialog for handling the exception.
+2. We show dialog in case of login returns any exception.
+3. We show exception only if this is not the case : ERROR_SIGN_IN_ABORTED 
+4. ERROR_SIGN_IN_ABORTED is the code we are returning from the auth methods which performs login.
+5. Convert sign_in_page.dart to stateful widget to add loading state when user performs login.
+when user login using any of the option deactiavte other buttons and show loader.
+6. Added loading state and disabled buttons and show loader.
+7. Dispose the objects not needed in email_sign_in_form
