@@ -85,3 +85,7 @@ like final auth = Provider.of<AuthBase>(context,listen: false);
 2. We show dialog in case of login returns any exception.
 3. We show exception only if this is not the case : ERROR_SIGN_IN_ABORTED 
 4. ERROR_SIGN_IN_ABORTED is the code we are returning from the auth methods which performs login.
+5. Convert sign_in_page.dart to stateful widget to add loading state when user performs login.
+when user login using any of the option deactiavte other buttons and show loader.
+6. Added loading state and disabled buttons and show loader.
+7. Dispose the objects not needed in email_sign_in_form
