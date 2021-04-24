@@ -102,6 +102,12 @@ when user login using any of the option deactiavte other buttons and show loader
 3. Now we have to track the loading state through SignInBloc.
 4. We will now provide the SignInBloc with the help of Provider in the same way like we did for AuthBase in LandingPage.
 5. We have added StreamController in SignInPage to listen for the loading state through stream (not using state), since we have converted our signinpage to stateless widget.
-6. In all the signinpage login methods we have used `final bloc = Provider.of<SignInBloc>(context, listen: false);
-    bloc.setIsLoading(true);` to access/update the loading state.
-    
+6. In all the signinpage login methods we have used `final bloc = Provider.of<SignInBloc>(context, listen: false);`
+    `bloc.setIsLoading(true);` to access/update the loading state.
+### After using the consumer widget alternative of Provider
+7. We have to use the `final bloc = Provider.of<SignInBloc>(context, listen: false);` in multiple places so we can use CONSUMER and pass the bloc reference in the constructor using Consumer through the constructor.
+8. Dispose the bloc in provider.
+### Moving the Auth logic from UI (SignInPage) to BLOC(SignInBloc)
+9. We moved the AuthBase object in SignInBLoc using constructor from SignInPage.
+we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen;false)` and passed in SignInBloc constructor.
+10. We created custom `_signIn` method which accepts function as an argument which will perform login for us and return the User.

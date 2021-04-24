@@ -11,10 +11,20 @@ import 'package:toast/toast.dart';
 import 'sign_in_button.dart';
 
 class SignInPage extends StatelessWidget {
+  final SignInBloc bloc;
+
+  const SignInPage({Key key, @required this.bloc}) : super(key: key);
+
   static Widget create(BuildContext context) {
+    final auth = Provider.of<AuthBase>(context, listen: false);
     return Provider<SignInBloc>(
-      create: (_) => SignInBloc(),
-      child: SignInPage(),
+      create: (_) => SignInBloc(auth: auth),
+      dispose: (_, bloc) => bloc.dispose(),
+      child: Consumer<SignInBloc>(
+        builder: (_, bloc, __) => SignInPage(
+          bloc: bloc,
+        ),
+      ),
     );
   }
 
@@ -28,44 +38,27 @@ class SignInPage extends StatelessWidget {
         title: 'Sign in Failed', exception: exception);
   }
 
- 
-
   Future<void> _signInAnonymously(BuildContext context) async {
-    final bloc = Provider.of<SignInBloc>(context, listen: false);
-    bloc.setIsLoading(true);
     try {
-      final auth = Provider.of<AuthBase>(context, listen: false);
-      await auth.signInAnonymously();
+      await bloc.signInAnonymously();
     } catch (e) {
       _showSignInError(context, e);
-    } finally {
-      bloc.setIsLoading(false);
     }
   }
 
   Future<void> _signInWithGoogle(BuildContext context) async {
-    final bloc = Provider.of<SignInBloc>(context, listen: false);
-    bloc.setIsLoading(true);
     try {
-      final auth = Provider.of<AuthBase>(context, listen: false);
-      await auth.signInWithGoogle();
+      await bloc.signInWithGoogle();
     } catch (e) {
       _showSignInError(context, e);
-    } finally {
-      bloc.setIsLoading(false);
     }
   }
 
   Future<void> _signInWithFacebook(BuildContext context) async {
-    final bloc = Provider.of<SignInBloc>(context, listen: false);
-    bloc.setIsLoading(true);
     try {
-      final auth = Provider.of<AuthBase>(context, listen: false);
-      await auth.signInWithFacebook();
+      await bloc.signInWithFacebook();
     } catch (e) {
       _showSignInError(context, e);
-    } finally {
-      bloc.setIsLoading(false);
     }
   }
 
@@ -78,7 +71,6 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of<SignInBloc>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: Text('New Time tracker'),
