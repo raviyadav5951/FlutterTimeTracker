@@ -89,3 +89,19 @@ like final auth = Provider.of<AuthBase>(context,listen: false);
 when user login using any of the option deactiavte other buttons and show loader.
 6. Added loading state and disabled buttons and show loader.
 7. Dispose the objects not needed in email_sign_in_form
+
+## Branch: 15_BLOC
+- We will be using Streams, Stream Builder ,Provider to create and implement BLOC.
+ Blocs are in the Data Layer.
+
+1. Rules for BlOC
+- Blocs only expose sinks and sources.
+- Blocs have no UI code
+- Blocs communicate with outside world via service(e.g. AuthService)
+2. Created a signinBloc (methods for handling loading state==>stream controller +stream) and provided the bloc with the help of Provider.
+3. Now we have to track the loading state through SignInBloc.
+4. We will now provide the SignInBloc with the help of Provider in the same way like we did for AuthBase in LandingPage.
+5. We have added StreamController in SignInPage to listen for the loading state through stream (not using state), since we have converted our signinpage to stateless widget.
+6. In all the signinpage login methods we have used `final bloc = Provider.of<SignInBloc>(context, listen: false);
+    bloc.setIsLoading(true);` to access/update the loading state.
+    
