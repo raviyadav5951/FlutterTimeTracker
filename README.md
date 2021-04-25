@@ -111,3 +111,11 @@ when user login using any of the option deactiavte other buttons and show loader
 9. We moved the AuthBase object in SignInBLoc using constructor from SignInPage.
 we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen;false)` and passed in SignInBloc constructor.
 10. We created custom `_signIn` method which accepts function as an argument which will perform login for us and return the User.
+### Creating BLOC for EmailSignIn
+11. Create a EmailSignInModel class to move all the state vars into the EmailSignInModel class.
+12. Create a Bloc class around EmailSignInModel class. Strean<EmailSignInModel>
+13. Instead of setState we have created updateWith in Bloc class to update the attribute using this method. e.g. when we have to update loading state we use `widget.bloc.updateWith(isLoading:true)`
+14. Also created default constructor to init the EmailSignInModel with default values.
+15. We wrapped the email_sign_in_form build widget with StreamController which listen to stream changes whenever we update any attribute. (same like sign_in_page build method)
+16. We moved all the state variables inside the bloc.
+17.  
