@@ -89,3 +89,39 @@ like final auth = Provider.of<AuthBase>(context,listen: false);
 when user login using any of the option deactiavte other buttons and show loader.
 6. Added loading state and disabled buttons and show loader.
 7. Dispose the objects not needed in email_sign_in_form
+
+## Branch: 15_BLOC
+- We will be using Streams, Stream Builder ,Provider to create and implement BLOC.
+ Blocs are in the Data Layer.
+
+1. Rules for BlOC
+- Blocs only expose sinks and sources.
+- Blocs have no UI code
+- Blocs communicate with outside world via service(e.g. AuthService)
+2. Created a signinBloc (methods for handling loading state==>stream controller +stream) and provided the bloc with the help of Provider.
+3. Now we have to track the loading state through SignInBloc.
+4. We will now provide the SignInBloc with the help of Provider in the same way like we did for AuthBase in LandingPage.
+5. We have added StreamController in SignInPage to listen for the loading state through stream (not using state), since we have converted our signinpage to stateless widget.
+6. In all the signinpage login methods we have used `final bloc = Provider.of<SignInBloc>(context, listen: false);`
+    `bloc.setIsLoading(true);` to access/update the loading state.
+### After using the consumer widget alternative of Provider
+7. We have to use the `final bloc = Provider.of<SignInBloc>(context, listen: false);` in multiple places so we can use CONSUMER and pass the bloc reference in the constructor using Consumer through the constructor.
+8. Dispose the bloc in provider.
+### Moving the Auth logic from UI (SignInPage) to BLOC(SignInBloc)
+9. We moved the AuthBase object in SignInBLoc using constructor from SignInPage.
+we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen;false)` and passed in SignInBloc constructor.
+10. We created custom `_signIn` method which accepts function as an argument which will perform login for us and return the User.
+### Creating BLOC for EmailSignIn
+11. Create a EmailSignInModel class to move all the state vars into the EmailSignInModel class.
+12. Create a Bloc class around EmailSignInModel class. Strean<EmailSignInModel>
+13. Instead of setState we have created updateWith in Bloc class to update the attribute using this method. e.g. when we have to update loading state we use `widget.bloc.updateWith(isLoading:true)`
+14. Also created default constructor to init the EmailSignInModel with default values.
+15. We wrapped the email_sign_in_form build widget with StreamController which listen to stream changes whenever we update any attribute. (same like sign_in_page build method)
+16. We moved all the state variables inside the bloc.
+17. Next step we moved the email,password error text, all the logics inside model class to get the values directly from the objects.
+
+- final widget tree structure:
+![Screenshot](/screenshot/widget_tree_bloc.png)
+
+- Responsiblities of each component after implementing bloc
+![Screenshot](/screenshot/bloc_responsibilities.png)
