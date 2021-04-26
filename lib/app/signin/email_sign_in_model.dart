@@ -52,12 +52,12 @@ class EmailSignInModel with EmailAndPasswordValidator {
   }
 
   String get emailErrorText {
-    bool showErrorText = submitted && !passwordValidator.isValid(email);
-    return showErrorText ? emailErrorText : null;
+    bool showErrorText = submitted && !emailValidator.isValid(email);
+    return showErrorText ? invalidEmailErrorText : null;
   }
 
   String get passwordErrorText {
     bool showErrorText = submitted && !passwordValidator.isValid(password);
-    return showErrorText ? passwordErrorText : null;
+    return showErrorText ? invalidPasswordErrorText : null;
   }
 }
