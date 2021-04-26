@@ -118,4 +118,10 @@ we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen
 14. Also created default constructor to init the EmailSignInModel with default values.
 15. We wrapped the email_sign_in_form build widget with StreamController which listen to stream changes whenever we update any attribute. (same like sign_in_page build method)
 16. We moved all the state variables inside the bloc.
-17.  
+17. Next step we moved the email,password error text, all the logics inside model class to get the values directly from the objects.
+
+- final widget tree structure:
+![Screenshot](/screenshot/widget_tree_bloc.png)
+
+- Responsiblities of each component after implementing bloc
+![Screenshot](/screenshot/bloc_responsibilities.png)
