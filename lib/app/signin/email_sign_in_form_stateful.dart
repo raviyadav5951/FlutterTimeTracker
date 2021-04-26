@@ -121,7 +121,7 @@ class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
       controller: _passwordController,
       decoration: InputDecoration(
           labelText: 'Password',
-          errorText: showErrorText ? widget.passwordErrorText : null,
+          errorText: showErrorText ? widget.invalidPasswordErrorText : null,
           enabled: _isLoading == false),
       obscureText: true,
       textInputAction: TextInputAction.done,
@@ -139,7 +139,7 @@ class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
       decoration: InputDecoration(
           hintText: 'test@test.com',
           labelText: 'Email',
-          errorText: showErrorText ? widget.emailErrorText : null,
+          errorText: showErrorText ? widget.invalidEmailErrorText : null,
           enabled: _isLoading == false),
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
