@@ -3,26 +3,33 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:new_timetracker/app/services/auth.dart';
 import 'package:new_timetracker/app/signin/email_sign_in_page.dart';
-import 'package:new_timetracker/app/signin/sign_in_bloc.dart';
-import 'package:new_timetracker/app/signin/social_signin_button.dart';
+import 'package:new_timetracker/app/signin/sign_in_manager.dart';
+import 'package:new_timetracker/common_widgets/social_signin_button.dart';
 import 'package:new_timetracker/common_widgets/show_exception_alert_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
-import 'sign_in_button.dart';
+import '../../common_widgets/sign_in_button.dart';
 
 class SignInPage extends StatelessWidget {
-  final SignInBloc bloc;
+  final SignInManager manager;
+  final bool isLoading;
 
-  const SignInPage({Key key, @required this.bloc}) : super(key: key);
+  const SignInPage({Key key, @required this.manager, @required this.isLoading})
+      : super(key: key);
 
   static Widget create(BuildContext context) {
     final auth = Provider.of<AuthBase>(context, listen: false);
-    return Provider<SignInBloc>(
-      create: (_) => SignInBloc(auth: auth),
-      dispose: (_, bloc) => bloc.dispose(),
-      child: Consumer<SignInBloc>(
-        builder: (_, bloc, __) => SignInPage(
-          bloc: bloc,
+    return ChangeNotifierProvider<ValueNotifier<bool>>(
+      create: (_) => ValueNotifier<bool>(false),
+      child: Consumer<ValueNotifier<bool>>(
+        builder: (_, isLoading, __) => Provider<SignInManager>(
+          create: (_) => SignInManager(auth: auth, isLoading: isLoading),
+          child: Consumer<SignInManager>(
+            builder: (_, manager, __) => SignInPage(
+              manager: manager,
+              isLoading: isLoading.value,
+            ),
+          ),
         ),
       ),
     );
@@ -40,7 +47,7 @@ class SignInPage extends StatelessWidget {
 
   Future<void> _signInAnonymously(BuildContext context) async {
     try {
-      await bloc.signInAnonymously();
+      await manager.signInAnonymously();
     } catch (e) {
       _showSignInError(context, e);
     }
@@ -48,7 +55,7 @@ class SignInPage extends StatelessWidget {
 
   Future<void> _signInWithGoogle(BuildContext context) async {
     try {
-      await bloc.signInWithGoogle();
+      await manager.signInWithGoogle();
     } catch (e) {
       _showSignInError(context, e);
     }
@@ -56,7 +63,7 @@ class SignInPage extends StatelessWidget {
 
   Future<void> _signInWithFacebook(BuildContext context) async {
     try {
-      await bloc.signInWithFacebook();
+      await manager.signInWithFacebook();
     } catch (e) {
       _showSignInError(context, e);
     }
@@ -66,9 +73,7 @@ class SignInPage extends StatelessWidget {
     Navigator.push(
         context,
         MaterialPageRoute(
-          fullscreenDialog: true,
-          builder: (context) => EmailSignInPage()
-        ));
+            fullscreenDialog: true, builder: (context) => EmailSignInPage()));
   }
 
   @override
@@ -78,17 +83,12 @@ class SignInPage extends StatelessWidget {
         title: Text('New Time tracker'),
         elevation: 2.0,
       ),
-      body: StreamBuilder<bool>(
-          initialData: false,
-          stream: bloc.isLoadingStream,
-          builder: (context, snapshot) {
-            return _buildContent(context, snapshot.data);
-          }),
+      body: _buildContent(context),
       backgroundColor: Colors.grey[200],
     );
   }
 
-  Widget _buildContent(BuildContext context, bool isLoading) {
+  Widget _buildContent(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(16.0),
       child: Column(
@@ -96,7 +96,7 @@ class SignInPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-            child: _buildHeader(isLoading),
+            child: _buildHeader(),
             height: 50.0,
           ),
           SizedBox(
@@ -158,7 +158,7 @@ class SignInPage extends StatelessWidget {
   }
 
   /// Show loader when loading otherwise show Sign In Text
-  Widget _buildHeader(bool isLoading) {
+  Widget _buildHeader() {
     if (isLoading) {
       return Center(child: CircularProgressIndicator());
     }
