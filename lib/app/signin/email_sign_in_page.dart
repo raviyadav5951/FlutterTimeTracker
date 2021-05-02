@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:new_timetracker/app/signin/email_sign_in_form_bloc_based.dart';
+import 'package:new_timetracker/app/signin/email_signin_provider/email_sign_in_form_change_notifier.dart';
 
 class EmailSignInPage extends StatelessWidget {
   @override
@@ -20,6 +20,6 @@ class EmailSignInPage extends StatelessWidget {
   }
 
   Widget _buildContent(BuildContext context) {
-    return EmailSignInFormBlocBased.create(context);
+    return EmailSignInFormChangeNotifier.create(context);
   }
 }

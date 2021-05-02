@@ -5,33 +5,23 @@ import 'package:new_timetracker/app/services/auth.dart';
 
 /// We will move all the business logic other than UI in this bloc.
 /// Loading state and auth methods will be moved here instead of SignInPage.
+///
+/// In Branch 16_state_manage_provider we will remove the stream/streamcontroller
 
-class SignInBloc {
+class SignInManager {
   final AuthBase auth;
+  final ValueNotifier<bool> isLoading;
 
-  SignInBloc({@required this.auth});
-
-  final StreamController<bool> _isLoadingController = StreamController<bool>();
-
-  Stream<bool> get isLoadingStream => _isLoadingController.stream;
-
-  void dispose() {
-    _isLoadingController.close();
-  }
-
-  //provide method to add in sink
-  void _setIsLoading(bool isLoading) {
-    _isLoadingController.add(isLoading);
-  }
+  SignInManager({@required this.auth, @required this.isLoading});
 
   //creating common sign in function which accepts the function as arg
 
   Future<User> _signIn(Future<User> Function() signInMethod) async {
     try {
-      _setIsLoading(true);
+      isLoading.value = true;
       return await signInMethod();
     } catch (e) {
-      _setIsLoading(false);
+      isLoading.value = false;
       rethrow;
     }
   }

@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:new_timetracker/app/services/auth.dart';
-import 'package:new_timetracker/app/signin/email_sign_in_bloc.dart';
-import 'package:new_timetracker/app/signin/email_sign_in_model.dart';
+import 'package:new_timetracker/app/signin/email_signin_bloc/email_sign_in_bloc.dart';
+import 'package:new_timetracker/app/signin/email_signin_bloc/email_sign_in_model.dart';
 import 'package:new_timetracker/common_widgets/form_submit_button.dart';
 import 'package:new_timetracker/common_widgets/show_exception_alert_dialog.dart';
 import 'package:provider/provider.dart';

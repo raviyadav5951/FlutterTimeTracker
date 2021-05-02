@@ -91,6 +91,8 @@ when user login using any of the option deactiavte other buttons and show loader
 7. Dispose the objects not needed in email_sign_in_form
 
 ## Branch: 15_BLOC
+
+## NOTE: use BLOC with stream of immutable objects.(To update the model classes objects we have to make the copy of objects and update the objects then add in stream)
 - We will be using Streams, Stream Builder ,Provider to create and implement BLOC.
  Blocs are in the Data Layer.
 
@@ -113,7 +115,7 @@ we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen
 10. We created custom `_signIn` method which accepts function as an argument which will perform login for us and return the User.
 ### Creating BLOC for EmailSignIn
 11. Create a EmailSignInModel class to move all the state vars into the EmailSignInModel class.
-12. Create a Bloc class around EmailSignInModel class. Strean<EmailSignInModel>
+12. Create a Bloc class around EmailSignInModel class. Stream<EmailSignInModel>
 13. Instead of setState we have created updateWith in Bloc class to update the attribute using this method. e.g. when we have to update loading state we use `widget.bloc.updateWith(isLoading:true)`
 14. Also created default constructor to init the EmailSignInModel with default values.
 15. We wrapped the email_sign_in_form build widget with StreamController which listen to stream changes whenever we update any attribute. (same like sign_in_page build method)
@@ -125,3 +127,60 @@ we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen
 
 - Responsiblities of each component after implementing bloc
 ![Screenshot](/screenshot/bloc_responsibilities.png)
+
+## Branch : 16_state_manage_provider
+- Start with following migration :
+-  Stream/Stream Controller ==> ValueNotifier
+- Stream Builder ==> ChangeNotifierProvider/Consumer
+- Concept is of subsctibe and listen model :
+ ChangeNotifierProvider -->CreateValueNotifier
+ Consumer --> Register for updates .
+
+## NOTE: use ChangeNotifier with mutable objects.(At a time we have single objects copy is maintained unlike BLOC)
+### Using ValueNotifier to check isLoading(bool) value change (SignInPage).
+ - Here we have to track the isLoading (bool) to show progress bar that's why we have used `ValueNotifier` . In Later part in EmailSignInForm where we want to track model at that time we will be using `ChangeNotifier`
+ - We will replace the code in sign_in_bloc where earlier we used to check loading state via stream in provider we will change isLoading value using isLoading.value .
+ - Renamed sign_in_bloc to sign_in_manager
+ - we have taken a isLoading as class variable and passed in constructor.
+ - We have used Consumers to listen for the changes and rebuild widgets.
+
+## NOTE: use ChangeNotifier with mutable objects.(At a time we have single objects copy is maintained unlike BLOC)
+ ### ChangeNotifier to notify about model change(EmailSignInForm)
+ - Approach is as below:
+ 1. First we will create New `EmailSignInModel` with `ChangeNotifier`.
+ 2. Add sumit method from `EmailSignInBloc`.
+ 3. Create New class from `EmailSignInFormBlocBased` -> `EmailSignInChangeNotifier`to use new model class.
+ 
+ ### BLOC: immutable with Streams and ChangeNotifier (mutable)
+ - First we have create a copy from `EmailSignInModel` to new class `EmailSignInChangeModel` and used `ChangeNotifier` as mixin.
+ - Then remove the final fields from `EmailSignInChangeModel`.
+ - Copied methods like toggleFormType and submit from `EmailSignInBloc` to `EmailSignInChangeModel`.
+ - Create copy of new class `EmailSignInChangeNotifier` from `EmailSignInFormBlocBased`.
+ - `EmailSignInChangeNotifier` class update the reference of `EmailSignInBloc bloc` with `EmailSignInChangeModel model' and remove dispose method.
+ - After that remove the parent `StreamBuilder` widget from the build method in `EmailSignInChangeNotifier` and replace the model class with widget.model with the help of  getter method `EmailSignInChangeModel get model => widget.model;`
+ - Last step we have to call our `EmailSignInChageNotifier` from `EmailSignInPage`instead of 
+ `EmailSignInFormBlocBased.create()`
+
+ ### When to choose between ValueNotifier and ChangeNotifier
+ - Difference between ValueNotifier and ChangeNotifier :
+   
+   ValueNotifier is implementation of ChangeNotifier which implicitly call `notifyListeners()` so when value is updated it compares and return the updated value.
+
+    `ChangeNotifier` gives us control to call `notifyListeners()` check the `EmailSignInChangeModel --> updateWith()`
+ - So when to choose between them :
+ - `ValueNotifier` is useful when we have to change the value for single type . i.e in our case `SignInPage` needed loading state.
+ - `ChangeNotifier` can be useful for `EmailSignInChageNotifier` where we need to track the multiple objects at once.
+
+ ### Useful links
+ - Pragmatic State Management in Flutter (Google I/O'19): https://www.youtube.com/watch?v=d_m5csmrf7I
+
+- My Reference Authentication Flow with Flutter & Firebase: https://github.com/bizz84/firebase_auth_demo_flutter
+
+- Provider package: https://pub.dev/packages/provider
+
+- ValueNotifier class: https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html
+
+- ChangeNotifier class: https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html
+
+
+ 
