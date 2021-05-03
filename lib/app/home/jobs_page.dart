@@ -1,9 +1,11 @@
 import 'dart:ui';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:new_timetracker/app/home/models/job.dart';
 import 'package:new_timetracker/app/services/auth.dart';
 import 'package:new_timetracker/app/services/database.dart';
 import 'package:new_timetracker/common_widgets/show_alert_dialog.dart';
+import 'package:new_timetracker/common_widgets/show_exception_alert_dialog.dart';
 import 'package:provider/provider.dart';
 
 class JobsPage extends StatelessWidget {
@@ -18,8 +20,13 @@ class JobsPage extends StatelessWidget {
   }
 
   Future<void> _createJob(BuildContext context) async {
-    final database = Provider.of<Database>(context,listen: false);
-    database.createJob(Job(name: 'Blogging', ratePerHour: 10));
+    try {
+      final database = Provider.of<Database>(context, listen: false);
+      database.createJob(Job(name: 'Blogging', ratePerHour: 10));
+    } on FirebaseException catch (e) {
+      showExceptionAlertDialog(context,
+          title: 'Operation Failed', exception: e);
+    }
   }
 
   Future<void> _confirmSignOut(BuildContext context) async {

@@ -218,3 +218,19 @@ we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen
   - Created abstract class for `Database` and `FirestoreDatabase` and add the methods for accesing the firestore cloud apis.
   - Create a model class called `Job` which will be convert the object toMap() using the `toMap()` function.
    So whenever we have to create the key-value pair of job data we have to make a new instance of `Job(name:'blogging' ,ratePerHour:10)` as usage. 
+   - On Firebase console update the rules for read/write permission
+   `rules_version = '2';
+    service cloud.firestore {
+      
+      match /databases/{database}/documents {
+      //match is for path 
+      // allow is for permission.
+      //here we allow write only of uid is of logged in user.
+
+      
+      match /users/{uid}/jobs/{document=**} {
+        allow read, write: if request.auth.uid == uid;
+      }}}
+  - `_createJob` defined in `JobsPage` create new Job for user when FloatingActionButton(+) is clicked.
+  - E
+
