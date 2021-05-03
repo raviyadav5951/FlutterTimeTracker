@@ -183,4 +183,38 @@ we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen
 - ChangeNotifier class: https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html
 
 
- 
+ ## Branch: 17_db_cloud_firestore
+ - Tasks that we will perform :
+  1. Create a new Job.
+  2. List all jobs.
+  3. Edit an existing job.
+  4. Delete existing job with all entries.
+-------------------
+  5. Create entry for a job.
+  6. List all entry for a job.
+  7. Edit entry for job.
+  8. Delete entry for job.
+-------------------
+  9. View breakdown of all jobs,showing total hours worked and the pay. 
+
+  - Database schema:
+  ![Screenshot](/screenshot/db_schema.png)
+
+  ### Firestore (NoSQL database)
+  - Consist of `document` and `collection`
+  - `Document` is a json key-value pair known as fields.
+  - `Collection` is a colllection of `documents`
+  
+  ## Rule for accessing the document
+  - e.g -> "users/user_123/jobs/job_abc"
+  - `users` and `jobs` are collection is at odd position.
+  - `user_123` and `job_abc` is document at even position.
+  ![Screenshot](/screenshot/rule.png)
+  
+  ### Proceed with Firestore installation
+  - Add latest dependency of cloud_firestore in pubspec.yaml.
+  - Rename `HomePage` to `JobsPage`.
+  - Add the FloatingActionButton in the JobsPage.
+  - Created abstract class for `Database` and `FirestoreDatabase` and add the methods for accesing the firestore cloud apis.
+  - Create a model class called `Job` which will be convert the object toMap() using the `toMap()` function.
+   So whenever we have to create the key-value pair of job data we have to make a new instance of `Job(name:'blogging' ,ratePerHour:10)` as usage. 
