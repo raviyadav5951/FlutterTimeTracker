@@ -232,5 +232,23 @@ we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen
         allow read, write: if request.auth.uid == uid;
       }}}
   - `_createJob` defined in `JobsPage` create new Job for user when FloatingActionButton(+) is clicked.
-  - E
+  ### Next task is to read the jobs
+  - We have created `jobsStream()` method in `database.dart` to read the list of jobs and return it as stream. But one thing important to note is we get the result in snapshot. And we have to map these data into our own model called `Job` . so we used the map operator.
+  - We convert the map .toList() return the list of Stream<Job>
+  - Create a static instance so that single instance of `FirestoreService` class can be always created.
+  - Now we will create the new class FirestoreService which contains the single firestore instance and all firestore related methods making the `database.dart` and `FirestoreService` hold separate functions.
+  ### Useful Links & Resources
+  - Choose a Database: Cloud Firestore or Realtime Database: https://firebase.google.com/docs/database/rtdb-vs-firestore
 
+  - What is a NoSQL database (video): https://www.youtube.com/watch?v=v_hR4K4auoQ
+
+  - Enable multidex for apps with over 64K methods: https://developer.android.com/studio/build/multidex
+
+  - FloatingActionButton class: https://api.flutter.dev/flutter/material/FloatingActionButton-class.html
+
+  - Get started with Cloud Firestore Security Rules: https://firebase.google.com/docs/firestore/security/get-started
+
+  - Factory constructors: https://dart.dev/guides/language/language-tour#factory-constructors
+
+  - ListView class: https://api.flutter.dev/flutter/widgets/ListView-class.html
+  

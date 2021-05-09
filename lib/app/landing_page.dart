@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:new_timetracker/app/home/jobs_page.dart';
+import 'package:new_timetracker/app/home/jobs/jobs_page.dart';
 import 'package:new_timetracker/app/services/auth.dart';
 import 'package:new_timetracker/app/services/database.dart';
 import 'package:provider/provider.dart';
