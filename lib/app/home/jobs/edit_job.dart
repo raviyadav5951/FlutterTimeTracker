@@ -5,8 +5,6 @@ import 'package:new_timetracker/app/services/database.dart';
 import 'package:new_timetracker/common_widgets/show_alert_dialog.dart';
 import 'package:new_timetracker/common_widgets/show_exception_alert_dialog.dart';
 import 'package:provider/provider.dart';
-// TODO add loading state
-// TODO restrict the duplicate request while other is in progress.
 
 class EditJobPage extends StatefulWidget {
   final Database database;
@@ -44,6 +42,7 @@ class _EditJobPageState extends State<EditJobPage> {
   String _name;
   int _ratePerHour;
   bool isNewJob() => widget.job == null;
+  bool isLoading = false;
 
   String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
 
@@ -71,6 +70,9 @@ class _EditJobPageState extends State<EditJobPage> {
   Future<void> _submit() async {
     try {
       if (validateAndSaveForm()) {
+        setState(() {
+          isLoading = true;
+        });
         final jobs = await widget.database.jobsStream().first;
 
         final allJobNames = jobs.map((job) => job.name).toList();
@@ -83,7 +85,8 @@ class _EditJobPageState extends State<EditJobPage> {
               content: 'Please use a different job name',
               defaultActionText: 'OK');
         } else {
-          final jobId = isNewJob() ? documentIdFromCurrentDate(): widget.job?.id ;
+          final jobId =
+              isNewJob() ? documentIdFromCurrentDate() : widget.job?.id;
           final job = Job(id: jobId, name: _name, ratePerHour: _ratePerHour);
           await widget.database.createOrUpdateJob(job);
           Navigator.pop(context);
@@ -92,6 +95,10 @@ class _EditJobPageState extends State<EditJobPage> {
     } on FirebaseException catch (e) {
       showExceptionAlertDialog(context,
           title: 'Operation Failed', exception: e);
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -105,12 +112,23 @@ class _EditJobPageState extends State<EditJobPage> {
         ),
         elevation: 2.0,
         actions: [
-          TextButton(
-            onPressed: _submit,
-            child: Text('Save'),
-            style: TextButton.styleFrom(
-              primary: Colors.white,
-              textStyle: TextStyle(color: Colors.white, fontSize: 18.0),
+          Visibility(
+            visible: !isLoading,
+            child: TextButton(
+              onPressed: !isLoading ? _submit : null,
+              child: Text('Save'),
+              style: TextButton.styleFrom(
+                primary: Colors.white,
+                textStyle: TextStyle(color: Colors.white, fontSize: 18.0),
+              ),
+            ),
+          ),
+          Visibility(
+            visible: isLoading,
+            child: Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.white,
+              ),
             ),
           ),
         ],
@@ -157,8 +175,9 @@ class _EditJobPageState extends State<EditJobPage> {
         keyboardType:
             TextInputType.numberWithOptions(signed: false, decimal: false),
         onSaved: (value) => _ratePerHour = int.tryParse(value) ?? 0,
-        validator: (value) =>
-            value.isNotEmpty && int.tryParse(value)>0 ? null : 'Rate per hour can\'t be empty',
+        validator: (value) => value.isNotEmpty && int.tryParse(value) > 0
+            ? null
+            : 'Rate per hour can\'t be empty',
       ),
     ];
   }

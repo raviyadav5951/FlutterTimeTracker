@@ -272,8 +272,11 @@ we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen
   - We also have to take care of the condition which checks the unique names before creating new job, that condition should be changed to handle the duplicate job name when we are just updating the job.
 
   - Form class: https://api.flutter.dev/flutter/widgets/Form-class.html
-  
   - TextFormField class: https://api.flutter.dev/flutter/material/TextFormField-class.html
+  - When user submits the request we made `isLoading=true` which hides `save` and show `loader'
+  - Add `isLoading` in `edit_job.dart` to handle the loading state.
+  - On Loading state used `Visibility` widget to hide the `save` and show `Loader` on `ActionBar-> action`.
+  - So by doing this when we hide the save button no dupicate request can be made and loading is also controlled.
 
   
   
