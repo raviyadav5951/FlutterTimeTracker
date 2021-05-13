@@ -6,7 +6,7 @@ class FirestoreService {
   static final instance = FirestoreService._();
 
   /// generic method to set the data
-  Future<void> setData({String path, Map<String, dynamic> data}) async {
+  Future<void> setData({@required String path,@required Map<String, dynamic> data}) async {
     final documentReference = FirebaseFirestore.instance.doc(path);
     print('$path : $data');
     await documentReference.set(data);
@@ -20,7 +20,14 @@ class FirestoreService {
     final reference = FirebaseFirestore.instance.collection(path);
     final snapshots = reference.snapshots();
 
-    return snapshots.map((snapshot) =>
-        snapshot.docs.map((snapshot) => builder(snapshot.data(),snapshot.id)).toList());
+    return snapshots.map((snapshot) => snapshot.docs
+        .map((snapshot) => builder(snapshot.data(), snapshot.id))
+        .toList());
+  }
+
+  Future<void> deleteData({@required String path}) async {
+    final documentReference = FirebaseFirestore.instance.doc(path);
+    print('Job deleted= $path');
+    await documentReference.delete();
   }
 }

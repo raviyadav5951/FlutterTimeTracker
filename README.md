@@ -278,5 +278,21 @@ we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen
   - On Loading state used `Visibility` widget to hide the `save` and show `Loader` on `ActionBar-> action`.
   - So by doing this when we hide the save button no dupicate request can be made and loading is also controlled.
 
+  ## Branch: 19_listviews_ui_states 
+  ### We will be setting views for empty state,error 
+  - We will handle the ui states like loading, empty and other states using `ListItemsBuilder<T>` class.
+  - Use `ListView.Builder` is useful to load only those items which are visible . very useful for showing large list.Performance will also increase.(316)
+  - We will use our custom created class called `ListItemsBuilder` in `jobs_page` to load the items as well as the ui states like empty,loading and error.
+  - Divider : To add the divider between the list items we use `ListItemsBuilder.separated` through which we can add a `Divider` between the items using `height` attribute.
+
+  ### Delete items using swipe gesture from firestore database.
+  - Create method in `FirestoreService` and `database` class to delete the data. We need to pass the path to delete the job.
+  - `Dismissible` widget to add swipe to dismiss feature on `ListTile`.
+  - We can add the `direction` to apply for the swipe direction.
+  - We can also supply the action/method in `onDismissed` to delete the item from database.
+   
+  ### Flutter Slidable: https://pub.dev/packages/flutter_slidable 
+
+
   
   
