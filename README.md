@@ -252,3 +252,28 @@ we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen
 
   - ListView class: https://api.flutter.dev/flutter/widgets/ListView-class.html
   
+  ## Branch: 18_forms_cloud_firestore
+  - Create a new Job form `AddJobPage` which will contain the form.
+  - Create a `GlobalKey` to keep the track of the form variable state.
+  - We have added a save TextButton on `AppBar` which will validate the form ,save the form and submit the details to firestore.
+  - We used 'onSaved` and `validator` in `TextFormField` to get the values and show error when they are empty.
+  - Now when saving the data we need access to `Database` but since our `AddJobPage` is not having the common ancestor we cant directly get the `Database` with the provider. so we can do is we can pass the `Database` instance from `JobsPage` because the `JobsPage` ancestor is the Provider (Database).
+  - Now we will create a constructor in `AddJobPage` and call it from `show` method.
+  - Enforce unique job name : so before submit fetch the latest snapshot stream of jobs as list and compare the newly added jobname in form is present in the list or not.
+  - We renamed `AddJobPage` to `EditJobPage`.
+  - We created `JobListTile` to display the list of jobs as a tile and created it as custom view to handle click event.
+  - We now will use the `EditJobPage` to edit the exixting job by click on job tile and also to create new Job by sending the job as parameter.
+  - We will send `job:null` for adding new job and to edit the job we will use the same form and populate the form field by extracting job value.
+  ### To edit job we need job id (DocumentId is generic name for job_id in our case) as every entry is recognised as Document so to uniquely identify we call is documentId=Job_id.
+
+  - To edit the job we need the job id so we need to change the `FirestoreService` because we are not using the job id so we need to change the model classes.
+  - We change `collectionStream` function arg to accept the `documentId` and made changes from the respective `database` method.
+  - We will now use the `createJob` method and rename to `createOrUpdateJob` from `edit_job.dart` class to create/update the job. We pass the job.id if its not null otherwise we pass `documentIdFromCurrentDate()` to create the new job with unique job id.
+  - We also have to take care of the condition which checks the unique names before creating new job, that condition should be changed to handle the duplicate job name when we are just updating the job.
+
+  - Form class: https://api.flutter.dev/flutter/widgets/Form-class.html
+  
+  - TextFormField class: https://api.flutter.dev/flutter/material/TextFormField-class.html
+
+  
+  
