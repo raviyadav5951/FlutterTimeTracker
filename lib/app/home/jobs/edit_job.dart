@@ -4,7 +4,6 @@ import 'package:new_timetracker/app/home/models/job.dart';
 import 'package:new_timetracker/app/services/database.dart';
 import 'package:new_timetracker/common_widgets/show_alert_dialog.dart';
 import 'package:new_timetracker/common_widgets/show_exception_alert_dialog.dart';
-import 'package:provider/provider.dart';
 
 class EditJobPage extends StatefulWidget {
   final Database database;
@@ -12,8 +11,8 @@ class EditJobPage extends StatefulWidget {
 
   const EditJobPage({Key key, this.database, this.job}) : super(key: key);
 
-  static Future<void> show(BuildContext context, {Job job}) async {
-    final database = Provider.of<Database>(context, listen: false);
+  static Future<void> show(BuildContext context,
+      {Database database, Job job}) async {
     await Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => EditJobPage(
               database: database,

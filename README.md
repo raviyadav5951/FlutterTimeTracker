@@ -293,6 +293,28 @@ we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen
    
   ### Flutter Slidable: https://pub.dev/packages/flutter_slidable 
 
+  ## Branch 20_datetime_pickers
+  - We added the entries collection inside user path in firestore database.
+  - Now earlier we show `EditJobPage` on click of list item tile , now we add one more route `JobEntriesPage` to show the entries for specific job.
+  - But since database was not accesible using provider in `EditJobPage` because we inserted the `JobEntriesPage` route in between so we have passed the reference of `Datbase` in show method to perform the new job entry and edit the job entry which required `Database` from the `JobEntriesPage`.
+  - In `EntryListItem` we used `inkwell` widget to show material effect.
+  - Spread, collection if and collection for are special dart features which is useful when we want to add widgets based on certain condition.
+  - Created a custom widget called `DateTimePicker` which includes `InputDropdown` custom widget and calls `showDatePicker` or `showTimePicker` methods to launch date/time picker.
+  - video 333: When we update the job details on firestore and keep the job entry opened `JobEntriesPage` in the app then it will not reflect in the app because we need to add the Stream builder around in `JobEntriesPage`.
+  - We have to add one method in `Database` to fetch the stream of job and then we wrap using the `StreamBuilder` in `JobEntriesPage`.
+  ### Useful links
+
+ - intl package: https://pub.dev/packages/intl
+
+ - NumberFormat class: https://api.flutter.dev/flutter/intl/NumberFormat-class.html
+
+ - DateFormat class: https://api.flutter.dev/flutter/intl/DateFormat-class.html
+
+ - Making Dart a Better Language for UI: https://medium.com/dartlang/making-dart-a-better-language-for-ui-f1ccaf9f546c
+
+ - Flutter Gallery source code: https://github.com/flutter/gallery
+
+ - Cupertino (iOS-style) widgets: https://flutter.dev/docs/development/ui/widgets/cupertino
 
   
   
