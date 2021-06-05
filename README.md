@@ -317,4 +317,19 @@ we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen
  - Cupertino (iOS-style) widgets: https://flutter.dev/docs/development/ui/widgets/cupertino
 
   
+  ## Branch 21_bottom_navigation_cupertino
+  ### Achieve: Multiple Navigation States.
+  ### When navigating from one section. e.g Jobs->JObslist and then move to entries tab and pressing back we should come to JobsList.(Multiple Navigation State) thats why we used `CupertinoTabScaffold`
+
+  - We need an additional page when user log in.
+  - We need an additional page when user log in.
+  - We will replace the `JobsPage` by `HomePage` which contains the `BottomNavigation` flow.
+  - `HomePage` will keep the track of which page is getting selected.
+  - Created model class and enum `TabItemData` which contains attribute of tab item name and icon.
+  - Created enums of `TabItem` with `jobs,entries,account` tab.
+  - We removed floatbutton from `JobsPage` and `JobEntriesPage` as it was overlapping with the `CupertinoBottomNavigation` so we removed and pushed `IconButton` at the action bar action.
+  - Removed logout from the entries page and pushed to `AccountPage`.
+  - In the new class `HomePage` updated the page to be loaded during navigation in `WidgetBuilders` map.
+  
+
   
