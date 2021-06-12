@@ -20,16 +20,31 @@ class _HomePageState extends State<HomePage> {
     };
   }
 
+  final Map<TabItem, GlobalKey<NavigatorState>> navigatorKeys = {
+    TabItem.jobs: GlobalKey<NavigatorState>(),
+    TabItem.entries: GlobalKey<NavigatorState>(),
+    TabItem.account: GlobalKey<NavigatorState>()
+  };
+
   void _selectTab(TabItem tabItem) {
-    setState(() => _currentTab = tabItem);
-  }
+    if (tabItem == _currentTab) {
+      //pop to first route
+      navigatorKeys[tabItem].currentState.popUntil((route) => route.isFirst);
+    } else {
+      setState(() => _currentTab = tabItem);
+    }
+  } 
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoHomeScaffold(
-      currentTab: _currentTab,
-      onTabSelected: _selectTab,
-      widgetBuilders: widgetBuilders,
+    return WillPopScope(
+      onWillPop: () async => !await navigatorKeys[_currentTab].currentState.maybePop(),
+      child: CupertinoHomeScaffold(
+        currentTab: _currentTab,
+        onTabSelected: _selectTab,
+        widgetBuilders: widgetBuilders,
+        navigatorKeys: navigatorKeys,
+      ),
     );
   }
 }

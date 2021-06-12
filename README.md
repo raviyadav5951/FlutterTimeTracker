@@ -330,6 +330,22 @@ we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen
   - We removed floatbutton from `JobsPage` and `JobEntriesPage` as it was overlapping with the `CupertinoBottomNavigation` so we removed and pushed `IconButton` at the action bar action.
   - Removed logout from the entries page and pushed to `AccountPage`.
   - In the new class `HomePage` updated the page to be loaded during navigation in `WidgetBuilders` map.
-  
+
+  ### Remove the add Job screen from Job entries flow and show it as independent.
+  - We will show AddJob screen as full screen , we dont need bottom navigation there so we will have to attach the page at different level of view hierarchy.
+  - `rootNavigator: true` :When using the `EditJobPage` we use navigator so if we dont need bottom navigation on `EditJobPage` then use `Navigator.of(context,rootNavigator: true)` while showing the route and same while showing the  `EntryPage`
+
+  ### For modal and fullscreen dialog use `rootNavigator: true`, non modal dialogs omit the `rootNavigator` attribute.
+
+  ### Handling back navigation for the tabs on android
+  - We created the map of `navigatorKeys` which will track the navigation for each tab.
+  - Conected the `navigatorKeys` with `CupertinoTabView` and passing the navigators.
+  - We wrapped the `CupertinoHomeScaffold` with `WillPopScope` which will handle back navigation.
+  - In `WillPopScope` we add `onWillPop` attribute which uses maybePop() which will return true/false when popped.
+  - If there are more than one route then it pops and return true,otherwise it doesn't pop and give false.
+  - Move to main route when click on bottom tab icons.
+
+
+
 
   
