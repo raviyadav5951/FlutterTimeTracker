@@ -345,6 +345,18 @@ we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen
   - If there are more than one route then it pops and return true,otherwise it doesn't pop and give false.
   - Move to main route when click on bottom tab icons.
 
+  ### Helpful resources
+
+ - CupertinoTabScaffold class: https://api.flutter.dev/flutter/cupertino/CupertinoTabScaffold-class.html
+
+ - CupertinoTabBar class: https://api.flutter.dev/flutter/cupertino/CupertinoTabBar-class.html
+
+ - CupertinoTabView class: https://api.flutter.dev/flutter/cupertino/CupertinoTabView-class.html
+
+ - CupertinoPageScaffold class: https://api.flutter.dev/flutter/cupertino/CupertinoPageScaffold-class.html
+
+ - Flutter Bottom Navigation Bar with Multiple Navigators: A Case Study: https://codewithandrea.com/articles/multiple-navigators-bottom-navigation-bar/
+
 
 
 

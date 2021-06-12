@@ -28,17 +28,18 @@ class _HomePageState extends State<HomePage> {
 
   void _selectTab(TabItem tabItem) {
     if (tabItem == _currentTab) {
-      //pop to first route
       navigatorKeys[tabItem].currentState.popUntil((route) => route.isFirst);
     } else {
       setState(() => _currentTab = tabItem);
     }
-  } 
+
+  }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => !await navigatorKeys[_currentTab].currentState.maybePop(),
+      onWillPop: () async =>
+          !await navigatorKeys[_currentTab].currentState.maybePop(),
       child: CupertinoHomeScaffold(
         currentTab: _currentTab,
         onTabSelected: _selectTab,
