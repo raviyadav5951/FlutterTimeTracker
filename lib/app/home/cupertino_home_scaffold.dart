@@ -6,6 +6,7 @@ import 'package:new_timetracker/app/home/tab_item.dart';
 /// In future if we need to change or update with new widget then change
 /// will not come in HomePage.
 class CupertinoHomeScaffold extends StatelessWidget {
+
   final TabItem currentTab;
   //callback to know what changed
   final ValueChanged<TabItem> onTabSelected;
@@ -23,6 +24,7 @@ class CupertinoHomeScaffold extends StatelessWidget {
       @required this.navigatorKeys})
       : super(key: key);
 
+ 
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
@@ -32,20 +34,24 @@ class CupertinoHomeScaffold extends StatelessWidget {
             _buildItem(TabItem.entries),
             _buildItem(TabItem.account),
           ],
+
           onTap: (index) => onTabSelected(TabItem.values[index]),
+
         ),
         tabBuilder: (context, index) {
           final item = TabItem.values[index];
           return CupertinoTabView(
             builder: (context) => widgetBuilders[item](context),
             navigatorKey: navigatorKeys[item],
+
           );
         });
   }
 
   BottomNavigationBarItem _buildItem(TabItem item) {
     final itemData = TabItemData.allTabs[item];
-    final color = currentTab == item ? Colors.indigo : Colors.grey;
+
+    final color = widget.currentTab == item ? Colors.indigo : Colors.grey;
 
     return BottomNavigationBarItem(
         icon: Icon(itemData.icon, color: color), label: itemData.title);
