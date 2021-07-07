@@ -394,4 +394,3 @@ we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen
 - We will show user profile for `AccountPage` page from the Firebase Auth object using Provider.
 - Created `Avatar` Stateless widget and added the user name and image url
 
-
