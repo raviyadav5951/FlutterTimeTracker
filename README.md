@@ -356,8 +356,37 @@ we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen
  - CupertinoPageScaffold class: https://api.flutter.dev/flutter/cupertino/CupertinoPageScaffold-class.html
 
  - Flutter Bottom Navigation Bar with Multiple Navigators: A Case Study: https://codewithandrea.com/articles/multiple-navigators-bottom-navigation-bar/
+ ## Branch 22_advanced_stream_operations_RX
 
+  - Here in the entries screen we need to combine data from two collection and then merge 
+    them and pass a single stream. (For merging this and combining we will use RxDart)
 
+  - RxDart library is additional layer on top of Stream and StreamBuilders.
 
+  - Difference : Dart    -    Stream  + StreamBuilder                    
+  - Difference : RXDart  -    Stream(Observable)  + Subject               
+                               
+  - We have created the `EntriesBloc` which contains the Rx function to combine the two input streams and return them as common stream.
+  - Here two input streams are independent in our case:
+  - Input stream 1 = entries stream 
+  - Input stream 2 = jobs stream.
+  - And we need combiner function where we write logic to combine the collection based on our logic. In this e.g main logic is entries.jobid== job.jobid
+  - So `combineLatest` rx function is used when we have multiple independent streams and we need to combine the input to common one.
+  ### use cases for the combine operator
+  - When we have to show watchlist for the user which contains the movies list.
+  so watchlist id is mapped against the movie item.
+  - Shopping cart for ecommerce application. Where there are streams of products and at other end you have user id of user who had put the items in cart.
 
-  
+  ### Useful Links & Resources
+  - ReactiveX.io: http://reactivex.io/
+
+- ReactiveX Observable: http://reactivex.io/documentation/observable.html
+
+- ReactiveX Operators: http://reactivex.io/documentation/operators.html
+
+- ReactiveX Subject: http://reactivex.io/documentation/subject.html
+
+- RxDart package: https://pub.dev/packages/rxdart
+
+- Single subscription vs broadcast streams: https://dart.dev/tutorials/language/streams#two-kinds-of-streams
+
