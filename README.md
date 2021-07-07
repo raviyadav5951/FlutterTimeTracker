@@ -390,3 +390,8 @@ we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen
 
 - Single subscription vs broadcast streams: https://dart.dev/tutorials/language/streams#two-kinds-of-streams
 
+## Branch 23_user_profile (final touch)
+- We will show user profile for `AccountPage` page from the Firebase Auth object using Provider.
+- Created `Avatar` Stateless widget and added the user name and image url
+
+
