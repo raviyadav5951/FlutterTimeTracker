@@ -394,3 +394,15 @@ we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen
 - We will show user profile for `AccountPage` page from the Firebase Auth object using Provider.
 - Created `Avatar` Stateless widget and added the user name and image url
 
+## Branch 24_unittest_mockito
+### Unit test -> validators_test.dart, format_test.dart,job_test.dart.
+
+- Create a file with `validators_test` under test folder. It will be unit test.
+- There are 2 ways to run the test : Under terminal go to root of the project and type
+`flutter test` this will run all the test files with name as `name_test.dart` `_test.dart` is mandatoryin filename.
+- Second way is to run the individual class group or test.
+- Added hashCode, toString and operator==(other) to compare objects 
+
+### Widget test
+- Starting witht the `CustomRaisedButton`.
+- 
