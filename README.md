@@ -404,5 +404,6 @@ we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen
 - Added hashCode, toString and operator==(other) to compare objects 
 
 ### Widget test
-- Starting witht the `CustomRaisedButton`.
-- 
+- Starting with the `CustomElevatedButton`.
+- We will be testing the tap event and find the widgets inside the class as expectation.
+
