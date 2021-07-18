@@ -411,4 +411,15 @@ we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen
 - We used `email_signin_form_stateful` to create widget test.
 - Strategy is first find the widget by text or by key.
 - Then fire tap event and use `verify` and `expect` to check the logic.
+### Stubbing : To mock the response 
+- Mock methods don't do anything unless we configure it.
 
+### Stubbing a mock means : decide response of mock method
+
+- Strategy :
+- `when(mock.method(args))`
+-    `thenReturn(object)`
+-    `thenAnswer(future/stream)`
+-    `thenThrow(exception)`
+
+- 
