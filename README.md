@@ -407,3 +407,8 @@ we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen
 - Starting with the `CustomElevatedButton`.
 - We will be testing the tap event and find the widgets inside the class as expectation.
 
+### Mockito : To mock the object
+- We used `email_signin_form_stateful` to create widget test.
+- Strategy is first find the widget by text or by key.
+- Then fire tap event and use `verify` and `expect` to check the logic.
+

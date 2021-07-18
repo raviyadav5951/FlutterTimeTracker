@@ -36,6 +36,7 @@ dependencies:
   provider: ^5.0.0
   cloud_firestore: ^1.0.7
   rxdart: ^0.27.1
+  mockito: ^5.0.11
 dev_dependencies:
   test: 
   flutter_test:
