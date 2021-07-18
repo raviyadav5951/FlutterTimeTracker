@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart' as test;
 import 'package:flutter_test/flutter_test.dart';
@@ -8,12 +9,24 @@ import 'package:provider/provider.dart';
 
 class MockAuth extends Mock implements AuthBase {}
 
+class MockUser extends Mock implements User {}
+
 void main() {
   MockAuth mockAuth;
 
   setUp(() {
     mockAuth = MockAuth();
   });
+
+  void stubSignInWithEmailAndPasswordSucceds() {
+    when(mockAuth.signInWithEmailAndPassword(any, any))
+        .thenAnswer((_) => Future<User>.value(MockUser()));
+  }
+
+  void stubSignInWithEmailAndPasswordThrow() {
+    when(mockAuth.signInWithEmailAndPassword(any, any))
+        .thenThrow(FirebaseAuthException(code: 'ERROR_WRONG_PASSWORD'));
+  }
 
   Future<void> pumpEmailSignInForm(test.WidgetTester tester,
       {VoidCallback onSignedIn}) async {
@@ -75,6 +88,77 @@ void main() {
 
       verify(mockAuth.signInWithEmailAndPassword(email, password)).called(1);
       expect(signedIn, true);
+    });
+
+    test.testWidgets(
+        'StubSuccess==>'
+        'WHEN user enter email and password'
+        'AND user taps on sign in button'
+        'THEN signInWithEmailAndPassword is called'
+        'AND user is signed in', (test.WidgetTester tester) async {
+      var signedIn = false;
+      await pumpEmailSignInForm(tester, onSignedIn: () => signedIn = true);
+
+      //add stub
+      stubSignInWithEmailAndPasswordSucceds();
+
+      const email = 'email@email.com';
+      const password = 'password';
+
+      final emailField = test.find.byKey(Key('email'));
+      expect(emailField, test.findsOneWidget);
+      await tester.enterText(emailField, email);
+
+      final passwordField = test.find.byKey(Key('password'));
+      expect(passwordField, findsOneWidget);
+      await tester.enterText(passwordField, password);
+
+      //to rebuild in case of test environment because widgets not rebuilt in case of test
+      await tester.pump();
+
+      //waits for any animation
+      // await tester.pumpAndSettle();
+
+      final signInButton = test.find.text('Sign In');
+      await tester.tap(signInButton);
+
+      verify(mockAuth.signInWithEmailAndPassword(email, password)).called(1);
+      expect(signedIn, true);
+    });
+
+    test.testWidgets(
+        'STUB EXCEPTION'
+        'WHEN user enter invalid email and password'
+        'AND user taps on sign in button'
+        'THEN signInWithEmailAndPassword is called'
+        'AND user is not signed in', (test.WidgetTester tester) async {
+      var signedIn = false;
+      await pumpEmailSignInForm(tester, onSignedIn: () => signedIn = true);
+
+      stubSignInWithEmailAndPasswordThrow();
+
+      const email = 'email@email.com';
+      const password = 'password';
+
+      final emailField = test.find.byKey(Key('email'));
+      expect(emailField, test.findsOneWidget);
+      await tester.enterText(emailField, email);
+
+      final passwordField = test.find.byKey(Key('password'));
+      expect(passwordField, findsOneWidget);
+      await tester.enterText(passwordField, password);
+
+      //to rebuild in case of test environment because widgets not rebuilt in case of test
+      await tester.pump();
+
+      //waits for any animation
+      // await tester.pumpAndSettle();
+
+      final signInButton = test.find.text('Sign In');
+      await tester.tap(signInButton);
+
+      verify(mockAuth.signInWithEmailAndPassword(email, password)).called(1);
+      expect(signedIn, false);
     });
   });
 
