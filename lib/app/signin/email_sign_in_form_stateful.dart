@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:new_timetracker/app/services/auth.dart';
@@ -7,10 +8,15 @@ import 'package:new_timetracker/common_widgets/form_submit_button.dart';
 import 'package:new_timetracker/common_widgets/show_exception_alert_dialog.dart';
 import 'package:provider/provider.dart';
 
+class EmailSignInFormStateful extends StatefulWidget
+    with EmailAndPasswordValidator {
+  final VoidCallback onSignedIn;
 
-class EmailSignInFormStateful extends StatefulWidget with EmailAndPasswordValidator {
+  EmailSignInFormStateful({this.onSignedIn});
+
   @override
-  _EmailSignInFormStatefulState createState() => _EmailSignInFormStatefulState();
+  _EmailSignInFormStatefulState createState() =>
+      _EmailSignInFormStatefulState();
 }
 
 class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
@@ -48,7 +54,7 @@ class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
     _passwordController.clear();
   }
 
-  void _submit() async {
+  Future<void> _submit() async {
     setState(() {
       _isSubmitted = true;
       _isLoading = true;
@@ -62,7 +68,10 @@ class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
       } else {
         await auth.createUserWithEmailAndPassword(_email, _password);
       }
-      Navigator.pop(context);
+      if (widget.onSignedIn != null) {
+        widget.onSignedIn();
+      }
+
     } on FirebaseAuthException catch (e) {
       showExceptionAlertDialog(
         context,
@@ -117,6 +126,7 @@ class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
     bool showErrorText =
         _isSubmitted && !widget.passwordValidator.isValid(_password);
     return TextField(
+      key: Key('password'),
       focusNode: _passwordFocusNode,
       controller: _passwordController,
       decoration: InputDecoration(
@@ -134,6 +144,7 @@ class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
     bool showErrorText = _isSubmitted && !widget.emailValidator.isValid(_email);
 
     return TextField(
+      key: Key('email'),
       focusNode: _emailFocusNode,
       controller: _emailController,
       decoration: InputDecoration(
