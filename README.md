@@ -422,4 +422,27 @@ we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen
 -    `thenAnswer(future/stream)`
 -    `thenThrow(exception)`
 
-- 
+### When testing the stream controller for `LandingPage` is tricky because of Stream.
+- So we will first create a stream and add the event in the stream.
+
+- Made changes in the landing_page.dart to pass the database in the constructor and moved FirestoreDatabase in the landing page.
+
+### Testing Navigation using NavigatorObsever
+
+- Test on the `signin_page_test.dart` to test the navigation.
+
+- Added mock of `NavigationObserver` to verifv navigation called.
+- `didPush` test is done when we click on the email and password sign in button.
+
+### Conclusion for widget testing
+- pumpWidget() with all required ancestors.
+- replace original service classes with mock class.
+- use `WidgetTester` to find widgets and test the `tap` feature afterwards
+
+## Testing ValueNotifier model 
+- Created `signin_manager_test.dart` to test ValueNotifier
+
+## Testing ChangeNotifier model
+- Created `email_sign_in_model_test.dart` to test the ChangeNotifier.
+
+

@@ -17,6 +17,8 @@ class SignInPage extends StatelessWidget {
   const SignInPage({Key key, @required this.manager, @required this.isLoading})
       : super(key: key);
 
+  static const emailPasswordKey = Key('email-password');
+
   static Widget create(BuildContext context) {
     final auth = Provider.of<AuthBase>(context, listen: false);
     return ChangeNotifierProvider<ValueNotifier<bool>>(
@@ -123,6 +125,7 @@ class SignInPage extends StatelessWidget {
             height: 8.0,
           ),
           SignInButton(
+            key: emailPasswordKey,
             color: Colors.teal[700],
             text: 'Sign in with Email',
             onPressed: isLoading ? null : () => _signInWithEmail(context),
