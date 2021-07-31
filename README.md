@@ -445,4 +445,38 @@ we got the AuthBase auth from `final auth = Provider.of<AuthBase>(context,listen
 ## Testing ChangeNotifier model
 - Created `email_sign_in_model_test.dart` to test the ChangeNotifier.
 
+## Useful Links & Resources
+- Testing Flutter apps: https://flutter.dev/docs/testing
 
+- An introduction to unit testing: https://flutter.dev/docs/cookbook/testing/unit/introduction
+
+- Mock dependencies using Mockito: https://flutter.dev/docs/cookbook/testing/unit/mocking
+
+- An introduction to widget testing: https://flutter.dev/docs/cookbook/testing/widget/introduction
+
+- Find widgets: https://flutter.dev/docs/cookbook/testing/widget/finders
+
+- Tap, drag, and enter text: https://flutter.dev/docs/cookbook/testing/widget/tap-drag
+
+- mockito: https://pub.dev/packages/mockito
+
+- Reference Authentication Flow with Flutter & Firebase: https://github.com/bizz84/firebaseauthdemo_flutter
+
+- Testing navigation events: https://iirokrankka.com/2018/08/22/writing-widget-tests-for-navigation-events/
+
+## Further reading
+- Introduction to animations: https://flutter.dev/docs/development/ui/animations
+
+- Flutter Platform Channels: https://medium.com/flutter/flutter-platform-channels-ce7f540a104e
+
+- Internation­alizing Flutter apps: https://flutter.dev/docs/development/accessibility-and-localization/internationalization
+
+- Accessibility: https://flutter.dev/docs/development/accessibility-and-localization/accessibility
+
+- Flutter performance profiling: https://flutter.dev/docs/testing/ui-performance
+
+- Flutter Widget of the Week (YouTube playlist): https://www.youtube.com/playlist?list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG
+
+- Flutter in Focus (YouTube playlist): https://www.youtube.com/playlist?list=PLjxrf2q8roU2HdJQDjJzOeO6J3FoFLWr2
+
+- Code With Andrea: https://codewithandrea.com/
